@@ -5,8 +5,8 @@ from binance.client import Client
 from binance.enums import *
 
 # Obtendo as chaves de API das variáveis de ambiente
-api_key = os.getenv("KEY_BINANCE")
-secret_key = os.getenv("SECRET_BINANCE")
+api_key = "fkcq4FWzNvqFwZEzqiYGYClKf8Rc90GM6xfY3a7x5FeRZRnkZEwqCaABTpyWa8JV"
+secret_key = "80LIjgGjpKdtRZXWDqrpEuePWdEMSs7yDMgXbmUAYUbYoYjTWdcNcoBc82NXyuOP"
 
 if not api_key or not secret_key:
     raise ValueError("As chaves da API Binance não foram definidas.")
