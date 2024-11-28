@@ -4,9 +4,6 @@ import time
 from binance.client import Client
 from binance.enums import *
 
-KEY_BINANCE = "fkcq4FWzNvqFwZEzqiYGYClKf8Rc90GM6xfY3a7x5FeRZRnkZEwqCaABTpyWa8JV"
-SECRET_BINANCE = "80LIjgGjpKdtRZXWDqrpEuePWdEMSs7yDMgXbmUAYUbYoYjTWdcNcoBc82NXyuOP"
-
 # Obtendo as chaves de API das variáveis de ambiente
 api_key = os.getenv("KEY_BINANCE")
 secret_key = os.getenv("SECRET_BINANCE")
