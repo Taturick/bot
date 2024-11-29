@@ -55,8 +55,8 @@ def calcular_quantidade(symbol, percentual_capital):
 
 # Função principal para operar com cruzamento de médias
 def operar_futuros_cruzamento():
-    symbol = "NEIROUSDT"  # Par a ser operado (corrigido o símbolo)
-    leverage = 2         # Configurar alavancagem
+    symbol = "NEIROUSDT"  # Par a ser operado
+    leverage = 2          # Configurar alavancagem
     percentual_capital = 0.5  # Percentual do capital a ser utilizado (50%)
     
     # Configurar alavancagem
@@ -68,7 +68,13 @@ def operar_futuros_cruzamento():
         try:
             # Buscar dados históricos (velas de 1 minuto)
             velas = cliente_binance.futures_klines(symbol=symbol, interval="1m", limit=50)
+            
+            print(f"Respostas das velas: {velas}")  # Verifique os dados das velas
+            
+            # Extrair os preços de fechamento
             fechamentos = [float(vela[4]) for vela in velas]  # Preços de fechamento
+            
+            print(f"Fechamentos: {fechamentos}")  # Verifique os preços de fechamento
 
             # Calcular médias móveis
             media_rapida = calcular_media(fechamentos, 9)   # Média móvel rápida (9 períodos)
