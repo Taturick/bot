@@ -10,10 +10,11 @@ secret_key = os.getenv("SECRET_BINANCE")
 cliente_binance = Client(api_key, secret_key)
 
 # Função para calcular médias móveis
-def calcular_media(prices, period):
-    if len(prices) < period:
-        raise ValueError("Não há dados suficientes para calcular a média.")
-    return sum(prices[-period:]) / period
+def calcular_media(dados, periodo):
+    if len(dados) < periodo:
+        return 0.00
+    media = sum(dados[-periodo:]) / periodo
+    return round(media, 8)
 
 # Função para ajustar a quantidade com base no stepSize permitido
 def ajustar_quantidade(symbol, quantidade):
@@ -69,24 +70,27 @@ def operar_futuros_cruzamento():
             # Buscar dados históricos (velas de 1 minuto)
             velas = cliente_binance.futures_klines(symbol=symbol, interval="1m", limit=50)
             
-            print(f"Respostas das velas: {velas}")  # Verifique os dados das velas
+            # Verifique os dados das velas
+            print(f"Respostas das velas: {velas}")  
             
             # Extrair os preços de fechamento
             fechamentos = [float(vela[4]) for vela in velas]  # Preços de fechamento
             
-            print(f"Fechamentos: {fechamentos}")  # Verifique os preços de fechamento
+            # Verifique os preços de fechamento
+            print(f"Fechamentos: {fechamentos}")  
 
             # Calcular médias móveis
             media_rapida = calcular_media(fechamentos, 9)   # Média móvel rápida (9 períodos)
             media_devagar = calcular_media(fechamentos, 25) # Média móvel devagar (25 períodos)
 
-            print(f"Média Rápida: {media_rapida:.2f} | Média Devagar: {media_devagar:.2f}")
+            # Exibição das médias
+            print(f"Média Rápida: {media_rapida:.8f} | Média Devagar: {media_devagar:.8f}")
             
             # Calcula a quantidade com base no saldo
             quantidade = calcular_quantidade(symbol, percentual_capital)
             print(f"Quantidade calculada: {quantidade}")
 
-            # Lógica de cruzamento
+            # Lógica de cruzamento de médias móveis
             if media_rapida > media_devagar and posicao_atual != "long":
                 # Fechar posição short, se existir
                 if posicao_atual == "short":
